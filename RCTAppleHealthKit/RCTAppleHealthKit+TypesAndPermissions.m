@@ -14,7 +14,7 @@
 #pragma mark - HealthKit Permissions
 
 - (NSDictionary *)readPermsDict {
-    NSDictionary *readPerms = @{
+    NSMutableDictionary *readPerms = [[NSMutableDictionary alloc] initWithDictionary: @{
         // Characteristic Identifiers
         @"DateOfBirth" : [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth],
         @"BiologicalSex" : [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex],
@@ -34,7 +34,7 @@
         @"ActiveEnergyBurned" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned],
         @"FlightsClimbed" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed],
         @"NikeFuel" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel],
-//        @"AppleExerciseTime" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime],
+        //        @"AppleExerciseTime" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime],
         // Nutrition Identifiers
         @"DietaryEnergy" : [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryEnergyConsumed],
         // Vital Signs Identifiers
@@ -49,7 +49,23 @@
         @"SleepAnalysis" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis],
         // Mindfulness
         @"MindfulSession" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession],
-    };
+        //CDA
+        @"DocumentCDA" : [HKDocumentType documentTypeForIdentifier:HKDocumentTypeIdentifierCDA]
+        }];
+    //
+    if (@available(iOS 12.0, *)) {
+        [readPerms addEntriesFromDictionary: @{
+         //FHIR
+         @"FHIRAllergy" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord],
+         @"FHIRCondition" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord],
+         @"FHIRImmunization" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord],
+         @"FHIRLab" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord],
+         @"FHIRMedication" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord],
+         @"FHIRProcedure" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord],
+        @"FHIRVitalSign" : [HKObjectType categoryTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord],
+         }];
+//
+    }
     return readPerms;
 }
 

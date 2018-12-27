@@ -437,4 +437,39 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchCDADocument:(void (^)(NSArray *, NSError *))completionHandler {
+    HKDocumentType *documentType = [HKDocumentType documentTypeForIdentifier:HKDocumentTypeIdentifierCDA];
+    NSMutableArray *documents = [[NSMutableArray alloc]init];
+    HKDocumentQuery *query = [[HKDocumentQuery alloc]initWithDocumentType:documentType predicate:nil limit:HKObjectQueryNoLimit sortDescriptors:nil includeDocumentData:true resultsHandler:^(HKDocumentQuery * _Nonnull query, NSArray<__kindof HKCDADocumentSample *> * _Nullable results, BOOL done, NSError * _Nullable error) {
+        if (error) {
+            // Perform proper error handling here
+            NSLog(@"*** An error occurred while calculating the statistics: %@ ***", error.localizedDescription);
+        }
+        for (HKCDADocumentSample *document in results) {
+            NSString *data = [[NSString alloc]initWithData:document.document.documentData encoding:NSUTF8StringEncoding];
+            [documents addObject: data];
+        }
+        if(done){
+            completionHandler(documents, error);
+        }
+    }];
+    [self.healthStore executeQuery: query];
+}
+
+
+- (void)fetchFHIRResourceType: (HKSampleType *) clinicType completion:(void (^)(NSArray *, NSError *))completionHandler API_AVAILABLE(ios(12.0)){
+    HKSampleQuery *query = [[HKSampleQuery alloc]initWithSampleType:clinicType predicate:nil limit: HKObjectQueryNoLimit sortDescriptors:nil resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKClinicalRecord *> * _Nullable results, NSError * _Nullable error) {
+        if (error) {
+            // Perform proper error handling here
+            NSLog(@"*** An error occurred while calculating the statistics: %@ ***", error.localizedDescription);
+        }
+        NSMutableArray *data = [[NSMutableArray alloc]init];
+        for (HKClinicalRecord *record in results) {
+            [data addObject:[NSJSONSerialization JSONObjectWithData:record.FHIRResource.data options:NSJSONReadingMutableContainers error:nil]];
+        }
+        completionHandler(data, error);
+    }];
+    [self.healthStore executeQuery: query];
+}
+
 @end

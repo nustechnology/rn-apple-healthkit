@@ -45,4 +45,8 @@
                                    limit:(NSUInteger)lim
                                    completion:(void (^)(NSArray *, NSError *))completion;
 
+- (void)fetchCDADocument:(void (^)(NSArray *, NSError *))completionHandler;
+
+- (void)fetchFHIRResourceType: (HKSampleType *) clinicType completion:(void (^)(NSArray *, NSError *))completionHandler API_AVAILABLE(ios(12.0));
+
 @end

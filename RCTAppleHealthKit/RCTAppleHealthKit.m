@@ -18,6 +18,8 @@
 #import "RCTAppleHealthKit+Methods_Results.h"
 #import "RCTAppleHealthKit+Methods_Sleep.h"
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
+#import "RCTAppleHealthKit+Methods_CDADocument.h"
+#import "RCTAppleHealthKit+Methods_FHIR.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -207,6 +209,15 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
     [self mindfulness_saveMindfulSession:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getCDADocuments:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self document_getCDADocuments:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getFHIRData:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self FHIR_getFHIRData:input callback:callback];
+}
 
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {

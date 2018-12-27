@@ -66,5 +66,13 @@ export const Permissions = {
   SleepAnalysis: "SleepAnalysis",
   StepCount: "StepCount",
   Steps: "Steps",
-  Weight: "Weight"
+  Weight: "Weight",
+  DocumentCDA: "DocumentCDA",
+  FHIRAllergy: "FHIRAllergy",
+  FHIRCondition: "FHIRCondition",
+  FHIRImmunization: "FHIRImmunization",
+  FHIRLab: "FHIRLab",
+  FHIRMedication: "FHIRMedication",
+  FHIRProcedure: "FHIRProcedure",
+  FHIRVitalSign: "FHIRVitalSign"
 }
