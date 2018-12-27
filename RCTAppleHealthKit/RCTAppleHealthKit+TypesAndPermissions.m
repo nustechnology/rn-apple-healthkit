@@ -62,7 +62,7 @@
          @"FHIRLab" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord],
          @"FHIRMedication" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord],
          @"FHIRProcedure" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord],
-        @"FHIRVitalSign" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord],
+        @"FHIRVitalSign" : [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord]
          }];
 //
     }
